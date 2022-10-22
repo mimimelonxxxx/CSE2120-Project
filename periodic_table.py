@@ -89,5 +89,43 @@ SECONDSEVENTH = (
 
 # Third row, First column 
 THIRDFIRST = ( 
-    ("Rb", )
+    ("Rb", 85.47, 1), # Check for RbClO4 
+    ("Cs", 132.91, 1), # CsClO4
+    ("Ag", 107.87, 1), # AgCH3COO
+    ("Hg2", 401.18, 2) #Hg2(CH3COO)2
+)
+
+# Third row, Second column 
+
+THIRDSECOND = (
+    ("Li", 6.94, 1), 
+    ("Mg", 48.62, 2), 
+    ("Ca", 40.08, 2), 
+    ("Sr", 87.62, 2), 
+    ("Ba", 137.33, 2), 
+    ("Fe", 55.85, 2), 
+    ("Hg2", 401.18, 2), 
+    ("Pb", 207.2, 2)
+)
+
+# Third row, Third column 
+
+THIRDTHIRD = (
+    ("Cu", 63.55, 1), 
+    ("Ag", 107.87, 1), 
+    ("Hg2", 401.18, 2), 
+    ("Pb", 207.2, 2), 
+    ("Tl", 204.38, 1)
+)
+
+# Third row, Fourth column 
+
+THIRDFOURTH = (
+    ("Ca", 40.08, 2), 
+    ("Sr", 87.62, 2), 
+    ("Ba", 137.33, 2), 
+    ("Ag", 107.87, 1), 
+    ("Hg2", 401.18, 2), 
+    ("Pb", 207.2, 2), 
+    ("Ra", 226, 2)
 )
