@@ -129,3 +129,11 @@ THIRDFOURTH = (
     ("Pb", 207.2, 2), 
     ("Ra", 226, 2)
 )
+
+# Third row, right side 
+
+ALLELEMENTS = (
+
+)
+# use a dictionary, name: (mass, charge)
+# only need to get the ones that produce charges (not the higher element ones)
