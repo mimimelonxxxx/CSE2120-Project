@@ -58,7 +58,7 @@ def calculateMoles(VOLUME, CONCENTRATION):
     MOLES = VOLUME * CONCENTRATION
     return MOLES 
 
-def determineLimiting(MOLES1, MOLES2):
+def determineLimiting(MOLES1, NAME1, MOLES2, NAME2):
     """
     converts the moles of the first reactant to moles of the second reactant and compare the two to find the limiting reagent 
     :param MOLES1: float (moles of first reactant)
@@ -67,22 +67,54 @@ def determineLimiting(MOLES1, MOLES2):
     """
     global ALLELEMENTS 
     # need to find and use molar ratio
-    # need to balance charges  
+    # need to balance charges
+    PROPERTIES1 = ALLELEMENTS.get(NAME1)
+    CHARGE1 = PROPERTIES1[1]
+    PROPERTIES2 = ALLELEMENTS.get(NAME2)
+    CHARGE2 = PROPERTIES2[1]
+    # multiply the moles of the substance to balance the charges 
+    # somehow make charge1 = charge2
+    while not CHARGE2 == CHARGE1: 
+        # try to balance charges 
+        pass
+
+
 
 def calculateSolubility(MOLES, NAME1, NAME2):
     """
-    looks through the top row of the solubility table and finds which row to use
+    looks through the top row of the solubility table and finds which column to use
     :param MOLES: float (moles of limiting)
     :param NAME1: str (name of first reactant)
     :param NAME2: str (name of second reactant)
-    :return: ROW -> int, NAME -> str (name of the ion to use)
+    :return: COLUMN -> int, NAME -> str (name of the ion to use)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH
+    PROPERTIES = FIRSTFIRST.get(NAME1)
+    PROPERTIES[1] # gets charge of name
 
-def calculatePrecipitate(MOLES, ):
+def calculatePrecipitate(MOLES, REACTANT1, REACTANT2):
     """
+    calculate the precipitate by using the mole ratio
+    :param MOLES: float (moles of the limiting reagent)
+    :param REACTANT1: str (name of the first reactant)
+    :param REACTANT2: str (name of the second reactant)
+    :return: int (amount of precipitate)
+    """
+    global FIRSTFIRST
+
+def molesToMass(MOLES, NAME): 
+    """
+    converts the moles of a substance to grams 
+    :param MOLES: float (the moles of the substance)
+    :param NAME: str (name of the substance)
+    :return: float (mass of the substance)
+    """
+    global ALLELEMENTS
+    PROPERTIES = ALLELEMENTS.get(NAME)
+    MOLARMASS = PROPERTIES[0]
+    MASS = MOLES * MOLARMASS 
+    return MASS
     
-    """
 
 # Outputs # 
 def displayLimiting(LIMITING, NAME1, NAME2): 
