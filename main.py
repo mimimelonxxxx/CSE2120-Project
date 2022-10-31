@@ -29,6 +29,7 @@ def getPositive():
     :return: str, float, float
     """
     ION = input("What's the name of the positive reacting ion? (no charges) ")
+    ION = ION.lower()
     VOLUME = input("What's the volume of the positive solution? (L) ")
     VOLUME = checkFloat(VOLUME)
     CONCENTRATION = input("What's the concentration of the positive solution? (mol/L) ")
@@ -41,6 +42,7 @@ def getNegative():
     :return: str, float, float
     """
     ION = input("What's the name of the negative reacting ion? (no charges) ")
+    ION = ION.lower()
     VOLUME = input("What's the volume of the negative solution? (L) ")
     VOLUME = checkFloat(VOLUME)
     CONCENTRATION = input("What's the concentration of the negative solution? (mol/L) ")
@@ -58,6 +60,29 @@ def calculateMoles(VOLUME, CONCENTRATION):
     MOLES = VOLUME * CONCENTRATION
     return MOLES 
 
+def balanceEquation(NAME1, NAME2):
+    """
+    balances the equation by 
+    1. getting the charges of each reactant
+    2. comparing the charges 
+    :param NAME1: str
+    :param NAME2: str 
+    :return: list (int)
+    """
+    global ALLPOS 
+    # need to find and use molar ratio
+    # need to balance charges
+    PROPERTIES1 = ALLPOS.get(NAME1)
+    CHARGE1 = PROPERTIES1[1]
+    PROPERTIES2 = ALLPOS.get(NAME2)
+    CHARGE2 = PROPERTIES2[1]
+    # multiply the moles of the substance to balance the charges 
+    # somehow make charge1 = charge2
+    while not CHARGE2 == CHARGE1: 
+        # try to balance charges 
+        pass
+    return CHARGE1, CHARGE2
+
 def determineLimiting(MOLES1, NAME1, MOLES2, NAME2):
     """
     converts the moles of the first reactant to moles of the second reactant and compare the two to find the limiting reagent 
@@ -65,19 +90,6 @@ def determineLimiting(MOLES1, NAME1, MOLES2, NAME2):
     :param MOLES2: float (moles of second reactant)
     :return: LIMITING -> int (whether reactant 1 or 2 is the limiting), LMOLES -> float 
     """
-    global ALLELEMENTS 
-    # need to find and use molar ratio
-    # need to balance charges
-    PROPERTIES1 = ALLELEMENTS.get(NAME1)
-    CHARGE1 = PROPERTIES1[1]
-    PROPERTIES2 = ALLELEMENTS.get(NAME2)
-    CHARGE2 = PROPERTIES2[1]
-    # multiply the moles of the substance to balance the charges 
-    # somehow make charge1 = charge2
-    while not CHARGE2 == CHARGE1: 
-        # try to balance charges 
-        pass
-
 
 
 def calculateSolubility(MOLES, NAME1, NAME2):
@@ -89,8 +101,11 @@ def calculateSolubility(MOLES, NAME1, NAME2):
     :return: COLUMN -> int, NAME -> str (name of the ion to use)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH
-    PROPERTIES = FIRSTFIRST.get(NAME1)
-    PROPERTIES[1] # gets charge of name
+    try: 
+        PROPERTIES = FIRSTFIRST.get(NAME1) # try each column to see if the element is there, then try the other name 
+        PROPERTIES[1] # gets charge of name
+    except: 
+        PROPERTIES
 
 def calculatePrecipitate(MOLES, REACTANT1, REACTANT2):
     """
@@ -109,8 +124,8 @@ def molesToMass(MOLES, NAME):
     :param NAME: str (name of the substance)
     :return: float (mass of the substance)
     """
-    global ALLELEMENTS
-    PROPERTIES = ALLELEMENTS.get(NAME)
+    global ALLPOS
+    PROPERTIES = ALLPOS.get(NAME)
     MOLARMASS = PROPERTIES[0]
     MASS = MOLES * MOLARMASS 
     return MASS
@@ -141,5 +156,5 @@ if __name__ == "__main__":
     # Processing # 
     PMOLES = calculateMoles(PVOLUME, PCONCENTRATION)
     NMOLES = calculateMoles(NVOLUME, NCONCENTRATION)
-
+    
     # Outputs # 
