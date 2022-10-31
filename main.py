@@ -65,32 +65,37 @@ def balanceEquation(NAME1, NAME2):
     balances the equation by 
     1. getting the charges of each reactant
     2. comparing the charges 
+    3. tries to make the charges equal (how?) 
     :param NAME1: str
     :param NAME2: str 
     :return: list (int)
     """
     global ALLPOS 
-    # need to find and use molar ratio
     # need to balance charges
     PROPERTIES1 = ALLPOS.get(NAME1)
     CHARGE1 = PROPERTIES1[1]
     PROPERTIES2 = ALLPOS.get(NAME2)
     CHARGE2 = PROPERTIES2[1]
-    # multiply the moles of the substance to balance the charges 
     # somehow make charge1 = charge2
     while not CHARGE2 == CHARGE1: 
         # try to balance charges 
         pass
     return CHARGE1, CHARGE2
 
-def determineLimiting(MOLES1, NAME1, MOLES2, NAME2):
+def determineLimiting(MOLES1, CHARGE1, MOLES2, CHARGE2):
     """
     converts the moles of the first reactant to moles of the second reactant and compare the two to find the limiting reagent 
     :param MOLES1: float (moles of first reactant)
     :param MOLES2: float (moles of second reactant)
-    :return: LIMITING -> int (whether reactant 1 or 2 is the limiting), LMOLES -> float 
+    :return: LIMITING -> int, MOLES -> float 
     """
-
+    MOLES21 = MOLES2 * CHARGE1 / CHARGE2 
+    if MOLES21 > MOLES1: 
+        LIMITING = 1
+        return LIMITING, MOLES1
+    else: 
+        LIMITING = 2
+        return LIMITING, MOLES2
 
 def calculateSolubility(MOLES, NAME1, NAME2):
     """
@@ -107,7 +112,7 @@ def calculateSolubility(MOLES, NAME1, NAME2):
     except: 
         PROPERTIES
 
-def calculatePrecipitate(MOLES, REACTANT1, REACTANT2):
+def calculatePrecipitate(MOLES, COLUMN, REACTANT1, REACTANT2):
     """
     calculate the precipitate by using the mole ratio
     :param MOLES: float (moles of the limiting reagent)
@@ -141,9 +146,9 @@ def displayLimiting(LIMITING, NAME1, NAME2):
     :return: None 
     """
     if LIMITING == 1: 
-        print(f"The limiting reagent is {NAME1}. ")
+        print(f"The limiting reagent is {NAME1.title()}. ")
     else: 
-        print(f"The limiting reagent is {NAME2}. ")
+        print(f"The limiting reagent is {NAME2.title()}. ")
 
 
 
@@ -157,4 +162,9 @@ if __name__ == "__main__":
     PMOLES = calculateMoles(PVOLUME, PCONCENTRATION)
     NMOLES = calculateMoles(NVOLUME, NCONCENTRATION)
     
+    PCHARGE = 1
+    NCHARGE = 1
+    LIMITING, LMOLES = determineLimiting(PMOLES, PCHARGE, NMOLES, NCHARGE)
     # Outputs # 
+    displayLimiting(LIMITING, POSITIVE, NEGATIVE)
+    
