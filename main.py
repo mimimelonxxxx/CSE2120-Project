@@ -23,6 +23,34 @@ def checkFloat(VALUE):
         NEW_NUM = input("> ")
         return checkFloat(NEW_NUM)
 
+def checkPos(ION):
+    """
+    Checks if the ion is in the positive table 
+    :param ION: str 
+    :return: str 
+    """
+    global ALLPOS
+    if not ALLPOS.get(ION) == None:
+        return ION
+    else:
+        print("Please enter a valid positive ion!")
+        NEWION = input("> ")
+        return checkPos(NEWION)
+
+def checkNeg(ION):
+    """
+    Checks if the ion is in the negative table 
+    :param ION: str 
+    :return: str 
+    """
+    global ALLNEG
+    if not ALLNEG.get(ION) == None:
+        return ION
+    else:
+        print("Please enter a valid negative ion!")
+        NEWION = input("> ")
+        return checkNeg(NEWION)
+
 def getPositive(): 
     """
     gets the information for the positive ion 
@@ -30,6 +58,7 @@ def getPositive():
     """
     ION = input("What's the name of the positive reacting ion? (no charges) ")
     ION = ION.lower()
+    ION = checkPos(ION)
     VOLUME = input("What's the volume of the positive solution? (L) ")
     VOLUME = checkFloat(VOLUME)
     CONCENTRATION = input("What's the concentration of the positive solution? (mol/L) ")
@@ -43,6 +72,7 @@ def getNegative():
     """
     ION = input("What's the name of the negative reacting ion? (no charges) ")
     ION = ION.lower()
+    ION = checkNeg(ION)
     VOLUME = input("What's the volume of the negative solution? (L) ")
     VOLUME = checkFloat(VOLUME)
     CONCENTRATION = input("What's the concentration of the negative solution? (mol/L) ")
@@ -65,22 +95,26 @@ def balanceEquation(NAME1, NAME2):
     balances the equation by 
     1. getting the charges of each reactant
     2. comparing the charges 
-    3. tries to make the charges equal (how?) 
+    3. tries to make the charges equal (multiply by each other?) 
     :param NAME1: str
     :param NAME2: str 
-    :return: list (int)
+    :return: coefficients (int)
     """
-    global ALLPOS 
+    global ALLPOS, ALLNEG
     # need to balance charges
     PROPERTIES1 = ALLPOS.get(NAME1)
     CHARGE1 = PROPERTIES1[1]
-    PROPERTIES2 = ALLPOS.get(NAME2)
+    PROPERTIES2 = ALLNEG.get(NAME2)
     CHARGE2 = PROPERTIES2[1]
     # somehow make charge1 = charge2
-    while not CHARGE2 == CHARGE1: 
-        # try to balance charges 
-        pass
-    return CHARGE1, CHARGE2
+    COEFFICIENT1 = 1
+    COEFFICIENT2 = 1 
+    POSCHRAGE = CHARGE1 * -CHARGE2 
+    NEGCHARGE = CHARGE1 * CHARGE2
+    COEFFICIENT1 = -NEGCHARGE 
+    COEFFICIENT2 = POSCHRAGE
+    # ???????? so many questions 
+    return COEFFICIENT1, COEFFICIENT2
 
 def determineLimiting(MOLES1, CHARGE1, MOLES2, CHARGE2):
     """
@@ -103,14 +137,13 @@ def calculateSolubility(MOLES, NAME1, NAME2):
     :param MOLES: float (moles of limiting)
     :param NAME1: str (name of first reactant)
     :param NAME2: str (name of second reactant)
-    :return: COLUMN -> int, NAME -> str (name of the ion to use)
+    :return: COLUMN -> str, NAME -> str (name of the ion to use)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH
-    try: 
-        PROPERTIES = FIRSTFIRST.get(NAME1) # try each column to see if the element is there, then try the other name 
-        PROPERTIES[1] # gets charge of name
-    except: 
-        PROPERTIES
+    # loop?
+    PROPERTIES = FIRSTFIRST.get(NAME1) # try each column to see if the element is there, then try the other name 
+    PROPERTIES[1] # gets charge of name
+    # COLUMN = "SECOND" etc 
 
 def calculatePrecipitate(MOLES, COLUMN, REACTANT1, REACTANT2):
     """
@@ -118,9 +151,10 @@ def calculatePrecipitate(MOLES, COLUMN, REACTANT1, REACTANT2):
     :param MOLES: float (moles of the limiting reagent)
     :param REACTANT1: str (name of the first reactant)
     :param REACTANT2: str (name of the second reactant)
-    :return: int (amount of precipitate)
+    :return: float (amount of precipitate)
     """
-    global FIRSTFIRST
+    global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
+    
 
 def molesToMass(MOLES, NAME): 
     """
@@ -162,9 +196,9 @@ if __name__ == "__main__":
     PMOLES = calculateMoles(PVOLUME, PCONCENTRATION)
     NMOLES = calculateMoles(NVOLUME, NCONCENTRATION)
     
-    PCHARGE = 1
-    NCHARGE = 1
-    LIMITING, LMOLES = determineLimiting(PMOLES, PCHARGE, NMOLES, NCHARGE)
+    PCOEFFICIENT, NCOEFFICIENT = balanceEquation(POSITIVE, NEGATIVE)
+    LIMITING, LMOLES = determineLimiting(PMOLES, PCOEFFICIENT, NMOLES, NCOEFFICIENT)
     # Outputs # 
     displayLimiting(LIMITING, POSITIVE, NEGATIVE)
+    print(PCOEFFICIENT, NCOEFFICIENT)
     
