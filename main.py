@@ -128,18 +128,22 @@ def determineLimiting(MOLES1, COEFFICIENT1, MOLES2, COEFFICIENT2):
         LIMITING = 2
         return LIMITING, MOLES2
 
-def calculateSolubility(MOLES, NAME1, NAME2):
+def formsPrecipitate(MOLES, NAME1, NAME2):
     """
-    looks through the top row of the solubility table and finds which column to use
+    looks through the top row of the solubility table and checks if it forms a precipitate
     :param MOLES: float (moles of limiting)
     :param NAME1: str (name of first reactant)
     :param NAME2: str (name of second reactant)
     :return: COLUMN -> str, NAME -> str (name of the ion to use)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH
-    # loop?
-    PROPERTIES = FIRSTFIRST.get(NAME1) # try each column to see if the element is there, then try the other name 
-    PROPERTIES[1] # gets charge of name
+    # look if negative is in the chart first
+    # loop that changes what COLUMN equals every time 
+    COLUMN = FIRSTFIRST
+    if NAME2 in COLUMN:
+        PROPERTIES = COLUMN.get(NAME2) # try each column to see if the element is there, then try the other name 
+    CHARGE = PROPERTIES[1] # gets charge of name
+    
     # COLUMN = "SECOND" etc 
 
 def calculatePrecipitate(MOLES, COLUMN, REACTANT1, REACTANT2):
@@ -205,4 +209,3 @@ if __name__ == "__main__":
     LIMITING, LMOLES = determineLimiting(PMOLES, PCOEFFICIENT, NMOLES, NCOEFFICIENT)
     # Outputs # 
     displayLimiting(LIMITING, POSITIVE, NEGATIVE)
-    
