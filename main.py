@@ -109,18 +109,18 @@ def balanceEquation(NAME1, NAME2):
     CHARGE2 = PROPERTIES2[1]
     # get the greatest common denominator and divide each by that
     GCD = math.gcd(CHARGE1, CHARGE2) 
-    COEFFICIENT1 = CHARGE1 / GCD
-    COEFFICIENT2 = CHARGE2 / GCD
-    return COEFFICIENT1, -COEFFICIENT2
+    COEFFICIENT2 = CHARGE1 / GCD
+    COEFFICIENT1 = CHARGE2 / GCD
+    return -COEFFICIENT1, COEFFICIENT2
 
-def determineLimiting(MOLES1, CHARGE1, MOLES2, CHARGE2):
+def determineLimiting(MOLES1, COEFFICIENT1, MOLES2, COEFFICIENT2):
     """
     converts the moles of the first reactant to moles of the second reactant and compare the two to find the limiting reagent 
     :param MOLES1: float (moles of first reactant)
     :param MOLES2: float (moles of second reactant)
     :return: LIMITING -> int, MOLES -> float 
     """
-    MOLES21 = MOLES2 * CHARGE1 / CHARGE2 
+    MOLES21 = MOLES2 * COEFFICIENT1 / COEFFICIENT2 
     if MOLES21 > MOLES1: 
         LIMITING = 1
         return LIMITING, MOLES1
@@ -181,7 +181,15 @@ def displayLimiting(LIMITING, NAME1, NAME2):
     else: 
         print(f"The limiting reagent is {NAME2.title()}. ")
 
-
+def displayPrecipitate(MASS, PRECIPITATE):
+    """
+    displays the name and mass of the precipitate 
+    :param MASS: float
+    :param PRECIPITATE: str
+    :return: None
+    """
+    # if there's no precipitate, need to display BEFORE limiting, cancel limiting
+    print(f"The mass of {PRECIPITATE} is {MASS} grams. ")
 
 ### MAIN PROGRAM CODE ### 
 if __name__ == "__main__": 
@@ -197,5 +205,4 @@ if __name__ == "__main__":
     LIMITING, LMOLES = determineLimiting(PMOLES, PCOEFFICIENT, NMOLES, NCOEFFICIENT)
     # Outputs # 
     displayLimiting(LIMITING, POSITIVE, NEGATIVE)
-    print(PCOEFFICIENT, NCOEFFICIENT)
     
