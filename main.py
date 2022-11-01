@@ -134,28 +134,40 @@ def formsPrecipitate(MOLES, NAME1, NAME2):
     :param MOLES: float (moles of limiting)
     :param NAME1: str (name of first reactant)
     :param NAME2: str (name of second reactant)
-    :return: COLUMN -> str, NAME -> str (name of the ion to use)
+    :return: COLUMN -> str (if COLUMN == 0 then it does not form a precipitate)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH
     # look if negative is in the chart first
     # loop that changes what COLUMN equals every time 
-    COLUMN = FIRSTFIRST
-    if NAME2 in COLUMN:
-        PROPERTIES = COLUMN.get(NAME2) # try each column to see if the element is there, then try the other name 
+    # COLUMN = FIRSTFIRST
+    if NAME2 in FIRSTFIRST:
+        PROPERTIES = FIRSTFIRST.get(NAME2) # try each column to see if the element is there, then try the other name 
+    elif NAME2 in FIRSTSECOND: 
+        PROPERTIES = FIRSTSECOND.get(NAME2)
+    elif NAME2 in FIRSTTHIRD: 
+        PROPERTIES = FIRSTTHIRD.get(NAME2)
+    elif NAME2 in FIRSTFOURTH: 
+        PROPERTIES = FIRSTFOURTH.get(NAME2)
+    elif NAME2 in FIRSTFIFTH: 
+        PROPERTIES = FIRSTFIFTH.get(NAME2)
+    elif NAME2 in FIRSTSIXTH: 
+        PROPERTIES = FIRSTSIXTH.get(NAME2)
+    elif NAME2 in FIRSTSEVENTH: 
+        PROPERTIES = FIRSTSEVENTH.get(NAME2)
     CHARGE = PROPERTIES[1] # gets charge of name
-    
     # COLUMN = "SECOND" etc 
 
-def calculatePrecipitate(MOLES, COLUMN, REACTANT1, REACTANT2):
+def calculatePrecipitate(MOLES, COLUMN, LIMITING):
     """
     calculate the precipitate by using the mole ratio
     :param MOLES: float (moles of the limiting reagent)
-    :param REACTANT1: str (name of the first reactant)
-    :param REACTANT2: str (name of the second reactant)
+    :param LIMITING: str (name of the limiting reactant)
     :return: float (amount of precipitate)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
-    
+    if COLUMN == 0: 
+        print("The two ions will not create a precipitate. ")
+
 
 def molesToMass(MOLES, NAME): 
     """
