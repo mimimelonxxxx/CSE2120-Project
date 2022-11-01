@@ -5,6 +5,7 @@ date-created: 2022-10-20
 """
 
 from periodic_table import * 
+import math
 
 ### SUBROUTINES ### 
 
@@ -106,15 +107,11 @@ def balanceEquation(NAME1, NAME2):
     CHARGE1 = PROPERTIES1[1]
     PROPERTIES2 = ALLNEG.get(NAME2)
     CHARGE2 = PROPERTIES2[1]
-    # somehow make charge1 = charge2
-    COEFFICIENT1 = 1
-    COEFFICIENT2 = 1 
-    POSCHRAGE = CHARGE1 * -CHARGE2 
-    NEGCHARGE = CHARGE1 * CHARGE2
-    COEFFICIENT1 = -NEGCHARGE 
-    COEFFICIENT2 = POSCHRAGE
-    # ???????? so many questions 
-    return COEFFICIENT1, COEFFICIENT2
+    # get the greatest common denominator and divide each by that
+    GCD = math.gcd(CHARGE1, CHARGE2) 
+    COEFFICIENT1 = CHARGE1 / GCD
+    COEFFICIENT2 = CHARGE2 / GCD
+    return COEFFICIENT1, -COEFFICIENT2
 
 def determineLimiting(MOLES1, CHARGE1, MOLES2, CHARGE2):
     """
