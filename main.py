@@ -112,6 +112,8 @@ def balanceEquation(NAME1, NAME2):
     GCD = math.gcd(CHARGE1, CHARGE2) 
     COEFFICIENT2 = CHARGE1 / GCD
     COEFFICIENT1 = CHARGE2 / GCD
+    COEFFICIENT1 = int(COEFFICIENT1)
+    COEFFICIENT2 = int(COEFFICIENT2)
     return -COEFFICIENT1, COEFFICIENT2
 
 def determineLimiting(MOLES1, COEFFICIENT1, MOLES2, COEFFICIENT2):
@@ -301,10 +303,17 @@ def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
     :param NCOEFFICIENT: int 
     :return: None
     """
+    # time to write some more spaghetti code
     if MASS == 0: 
         print("The two ions will not create a precipitate. ")
+    elif PCOEFFICIENT == 1 and NCOEFFICIENT != 1:
+        print(f"The mass of {PNAME.title()}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
+    elif PCOEFFICIENT != 1 and NCOEFFICIENT == 1:
+        print(f"The mass of {PNAME.title()}{PCOEFFICIENT}{NNAME.title()} is {MASS} grams. ")
+    elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1: 
+        print(f"The mass of {PNAME.title()}{NNAME.title()} is {MASS} grams. ")
     else:
-        print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
+        print(f"The mass of {PNAME.title()}{PCOEFFICIENT}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
 
 ### MAIN PROGRAM CODE ### 
 if __name__ == "__main__": 
