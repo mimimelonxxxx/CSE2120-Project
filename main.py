@@ -103,6 +103,7 @@ def balanceEquation(NAME1, NAME2):
     """
     global ALLPOS, ALLNEG
     # need to balance charges
+    # diatomic atoms 
     PROPERTIES1 = ALLPOS.get(NAME1)
     CHARGE1 = PROPERTIES1[1]
     PROPERTIES2 = ALLNEG.get(NAME2)
@@ -177,14 +178,15 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
     # insert spaghetti code here 
-    if COLUMN == 1:
-        if NEGATIVE == "clo4":
-            if POSITIVE == "rb":
+    # there has to be a way to loop through this so i don't have to write all this out 
+    if COLUMN == 1: # checks what column it's in 
+        if NEGATIVE == "clo4": 
+            if POSITIVE == "rb": # Check for RbClO4 
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
-            elif POSITIVE == "cs":
+            elif POSITIVE == "cs": # check for CsClO4
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
@@ -192,33 +194,86 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
             else: 
                 pass
         elif NEGATIVE == "ch3coo":
-            if POSITIVE == "ag":
+            if POSITIVE == "ag": # checks for AgCH3COO
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
-            elif POSITIVE == "hg":
+            elif POSITIVE == "hg": # check for Hg2(CH3COO)2
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
             else:
                 pass
-        print("The two ions will not create a precipitate. ")
-        PRODUCT = 0 
+        elif COLUMN == 2:
+            if POSITIVE in THIRDSECOND: # checks if the positive forms a precipitate 
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT # converts the moles of the limiting to moles of product 
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                pass # goes to the bottom 
+        elif COLUMN == 3: 
+            if POSITIVE in THIRDTHIRD:
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else: 
+                pass
+        elif COLUMN == 4:
+            if POSITIVE in THIRDFOURTH:
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                pass
+        elif COLUMN == 5: 
+            if POSITIVE not in SECONDFIFTH:
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                pass
+        elif COLUMN == 6:
+            if POSITIVE not in SECONDSIXTH: 
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                pass
+        elif COLUMN == 7:
+            if POSITIVE not in SECONDSEVENTH:
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                pass
+    print("The two ions will not create a precipitate. ") 
+    PRODUCT = 0 
     return PRODUCT 
 
-def molesToMass(MOLES, NAME): 
+def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
     """
-    converts the moles of a substance to grams 
-    :param MOLES: float (the moles of the substance)
-    :param NAME: str (name of the substance)
+    converts the moles of a precipitate to grams 
+    :param MOLES: float (the moles of the precipitate)
+    :param NAME1: str (name of pos reactant)
+    :param NAME2: str (name of neg reactant)
+    :param COEFFICIENT1: int (coefficient of pos)
+    :param COEFFICIENT2: int (coefficient of neg)
     :return: float (mass of the substance)
     """
-    global ALLPOS
-    PROPERTIES = ALLPOS.get(NAME)
-    MOLARMASS = PROPERTIES[0]
-    MASS = MOLES * MOLARMASS 
+    global ALLPOS, ALLNEG
+    PROPERTIES1 = ALLPOS.get(NAME1)
+    MOLARMASS1 = PROPERTIES1[0]
+    PROPERTIES2 = ALLNEG.get(NAME2)
+    MOLARMASS2 = PROPERTIES2[0]
+    MASS = MOLES * (MOLARMASS1 * COEFFICIENT1 + MOLARMASS2 * COEFFICIENT2)
     return MASS
     
 
@@ -261,6 +316,8 @@ if __name__ == "__main__":
     COLUMN = formsPrecipitate(POSITIVE, NEGATIVE)
     PRECIPITATE = calculatePrecipitate(LMOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIENT, NCOEFFICIENT)
     
+    PMASS = precipitateMass(PRECIPITATE, POSITIVE, NEGATIVE, PCOEFFICIENT, NCOEFFICIENT)
     # Outputs # 
-    displayLimiting(LIMITING, POSITIVE, NEGATIVE)
-    print(PRECIPITATE)
+    if PRECIPITATE != 0:
+        displayLimiting(LIMITING, POSITIVE, NEGATIVE)
+    print(PRECIPITATE, PMASS)
