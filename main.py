@@ -36,7 +36,7 @@ def checkPos(ION):
     else:
         print("Please enter a valid positive ion!")
         NEWION = input("> ")
-        return checkPos(NEWION)
+        return checkPos(NEWION.lower())
 
 def checkNeg(ION):
     """
@@ -50,7 +50,7 @@ def checkNeg(ION):
     else:
         print("Please enter a valid negative ion!")
         NEWION = input("> ")
-        return checkNeg(NEWION)
+        return checkNeg(NEWION.lower())
 
 def getPositive(): 
     """
