@@ -120,15 +120,15 @@ def determineLimiting(MOLES1, COEFFICIENT1, MOLES2, COEFFICIENT2):
     :param MOLES2: float (moles of second reactant)
     :return: LIMITING -> int, MOLES -> float 
     """
-    MOLES21 = MOLES2 * COEFFICIENT1 / COEFFICIENT2 
-    if MOLES21 > MOLES1: 
-        LIMITING = 1
-        return LIMITING, MOLES1
+    MOLES21 = MOLES2 * COEFFICIENT1 / COEFFICIENT2 # convert moles 2 to moles 1 
+    if MOLES21 > MOLES1: # test which one is greater 
+        LIMITING = 1 
+        return LIMITING, MOLES1 
     else: 
         LIMITING = 2
         return LIMITING, MOLES2
 
-def formsPrecipitate(MOLES, NAME1, NAME2):
+def formsPrecipitate(NAME1, NAME2):
     """
     looks through the top row of the solubility table and checks if it forms a precipitate
     :param MOLES: float (moles of limiting)
@@ -156,9 +156,9 @@ def formsPrecipitate(MOLES, NAME1, NAME2):
     elif NAME2 in FIRSTSEVENTH: 
         COLUMN = 7
     elif NAME1 in FIRSTFIRST: 
-        COLUMN = 1 
+        COLUMN = 1 # checks if it is a group 1 ion or nh4
     else: 
-        COLUMN = 0 
+        COLUMN = 0 # does not form a precipitate 
     # this is a whole lot of spaghetti code 
     return COLUMN
     
@@ -204,7 +204,6 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                     PRODUCT = MOLES / NCOEFFICIENT
             else:
                 pass
-    else:
         print("The two ions will not create a precipitate. ")
         PRODUCT = 0 
     return PRODUCT 
@@ -259,8 +258,9 @@ if __name__ == "__main__":
 
     PCOEFFICIENT, NCOEFFICIENT = balanceEquation(POSITIVE, NEGATIVE)
     LIMITING, LMOLES = determineLimiting(PMOLES, PCOEFFICIENT, NMOLES, NCOEFFICIENT)
-    COLUMN = formsPrecipitate(LMOLES, POSITIVE, NEGATIVE)
+    COLUMN = formsPrecipitate(POSITIVE, NEGATIVE)
     PRECIPITATE = calculatePrecipitate(LMOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIENT, NCOEFFICIENT)
+    
     # Outputs # 
     displayLimiting(LIMITING, POSITIVE, NEGATIVE)
     print(PRECIPITATE)
