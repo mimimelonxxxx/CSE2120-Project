@@ -192,7 +192,8 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
             else: 
-                pass
+                print("The two ions will not create a precipitate. ") 
+                PRODUCT = 0 
         elif NEGATIVE == "ch3coo":
             if POSITIVE == "ag": # checks for AgCH3COO
                 if LIMITING == 1:
@@ -205,57 +206,65 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
             else:
-                pass
-        elif COLUMN == 2:
-            if POSITIVE in THIRDSECOND: # checks if the positive forms a precipitate 
-                if LIMITING == 1:
-                    PRODUCT = MOLES / PCOEFFICIENT # converts the moles of the limiting to moles of product 
-                else: 
-                    PRODUCT = MOLES / NCOEFFICIENT
-            else:
-                pass # goes to the bottom 
-        elif COLUMN == 3: 
-            if POSITIVE in THIRDTHIRD:
-                if LIMITING == 1:
-                    PRODUCT = MOLES / PCOEFFICIENT
-                else: 
-                    PRODUCT = MOLES / NCOEFFICIENT
+                print("The two ions will not create a precipitate. ") 
+                PRODUCT = 0 
+    elif COLUMN == 2:
+        if POSITIVE in THIRDSECOND: # checks if the positive forms a precipitate 
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT # converts the moles of the limiting to moles of product 
             else: 
-                pass
-        elif COLUMN == 4:
-            if POSITIVE in THIRDFOURTH:
-                if LIMITING == 1:
-                    PRODUCT = MOLES / PCOEFFICIENT
-                else: 
-                    PRODUCT = MOLES / NCOEFFICIENT
-            else:
-                pass
-        elif COLUMN == 5: 
-            if POSITIVE not in SECONDFIFTH:
-                if LIMITING == 1:
-                    PRODUCT = MOLES / PCOEFFICIENT
-                else: 
-                    PRODUCT = MOLES / NCOEFFICIENT
-            else:
-                pass
-        elif COLUMN == 6:
-            if POSITIVE not in SECONDSIXTH: 
-                if LIMITING == 1:
-                    PRODUCT = MOLES / PCOEFFICIENT
-                else: 
-                    PRODUCT = MOLES / NCOEFFICIENT
-            else:
-                pass
-        elif COLUMN == 7:
-            if POSITIVE not in SECONDSEVENTH:
-                if LIMITING == 1:
-                    PRODUCT = MOLES / PCOEFFICIENT
-                else: 
-                    PRODUCT = MOLES / NCOEFFICIENT
-            else:
-                pass
-    print("The two ions will not create a precipitate. ") 
-    PRODUCT = 0 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            print("The two ions will not create a precipitate. ") 
+            PRODUCT = 0 
+    elif COLUMN == 3: 
+        if POSITIVE in THIRDTHIRD:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else: 
+            print("The two ions will not create a precipitate. ") 
+            PRODUCT = 0 
+    elif COLUMN == 4:
+        if POSITIVE in THIRDFOURTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            print("The two ions will not create a precipitate. ") 
+            PRODUCT = 0 
+    elif COLUMN == 5: 
+        if POSITIVE not in SECONDFIFTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            print("The two ions will not create a precipitate. ") 
+            PRODUCT = 0 
+    elif COLUMN == 6:
+        if POSITIVE not in SECONDSIXTH: 
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            print("The two ions will not create a precipitate. ") 
+            PRODUCT = 0 
+    elif COLUMN == 7:
+        if POSITIVE not in SECONDSEVENTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            print("The two ions will not create a precipitate. ") 
+            PRODUCT = 0 
+    else:
+        print("The two ions will not create a precipitate. ") 
+        PRODUCT = 0 
     return PRODUCT 
 
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
