@@ -291,15 +291,20 @@ def displayLimiting(LIMITING, NAME1, NAME2):
     else: 
         print(f"The limiting reagent is {NAME2.title()}. ")
 
-def displayPrecipitate(MASS, PRECIPITATE):
+def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
     """
     displays the name and mass of the precipitate 
     :param MASS: float
-    :param PRECIPITATE: str
+    :param PNAME: str
+    :param NNAME: str
+    :param PCOEFFICIENT: int
+    :param NCOEFFICIENT: int 
     :return: None
     """
-    # if there's no precipitate, need to display BEFORE limiting, cancel limiting
-    print(f"The mass of {PRECIPITATE} is {MASS} grams. ")
+    if MASS == 0: 
+        print("The two ions will not create a precipitate. ")
+    else:
+        print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
 
 ### MAIN PROGRAM CODE ### 
 if __name__ == "__main__": 
@@ -320,3 +325,4 @@ if __name__ == "__main__":
     # Outputs # 
     if PRECIPITATE != 0:
         displayLimiting(LIMITING, POSITIVE, NEGATIVE)
+    displayPrecipitate(PMASS, POSITIVE, NEGATIVE, PCOEFFICIENT, NCOEFFICIENT)
