@@ -134,40 +134,75 @@ def formsPrecipitate(MOLES, NAME1, NAME2):
     :param MOLES: float (moles of limiting)
     :param NAME1: str (name of first reactant)
     :param NAME2: str (name of second reactant)
-    :return: COLUMN -> str (if COLUMN == 0 then it does not form a precipitate)
+    :return: COLUMN -> int (if COLUMN == 0 then it does not form a precipitate)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH
     # look if negative is in the chart first
     # loop that changes what COLUMN equals every time 
-    # COLUMN = FIRSTFIRST
-    if NAME2 in FIRSTFIRST:
-        PROPERTIES = FIRSTFIRST.get(NAME2) # try each column to see if the element is there, then try the other name 
+    # COLUMN = FIRSTFIRST 
+    # conditional statements as last resort 
+    if NAME2 in FIRSTFIRST: # try each column to see if the element is there, then try the other name 
+        COLUMN = 1
     elif NAME2 in FIRSTSECOND: 
-        PROPERTIES = FIRSTSECOND.get(NAME2)
+        COLUMN = 2
     elif NAME2 in FIRSTTHIRD: 
-        PROPERTIES = FIRSTTHIRD.get(NAME2)
+        COLUMN = 3
     elif NAME2 in FIRSTFOURTH: 
-        PROPERTIES = FIRSTFOURTH.get(NAME2)
+        COLUMN = 4
     elif NAME2 in FIRSTFIFTH: 
-        PROPERTIES = FIRSTFIFTH.get(NAME2)
+        COLUMN = 5
     elif NAME2 in FIRSTSIXTH: 
-        PROPERTIES = FIRSTSIXTH.get(NAME2)
+        COLUMN = 6
     elif NAME2 in FIRSTSEVENTH: 
-        PROPERTIES = FIRSTSEVENTH.get(NAME2)
-    CHARGE = PROPERTIES[1] # gets charge of name
-    # COLUMN = "SECOND" etc 
+        COLUMN = 7
+    elif NAME1 in FIRSTFIRST: 
+        COLUMN = 1 
+    else: 
+        COLUMN = 0 
+    # this is a whole lot of spaghetti code 
+    return COLUMN
+    
 
-def calculatePrecipitate(MOLES, COLUMN, LIMITING):
+def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIENT, NCOEFFICIENT):
     """
     calculate the precipitate by using the mole ratio
     :param MOLES: float (moles of the limiting reagent)
-    :param LIMITING: str (name of the limiting reactant)
+    :param LIMITING: int (whether pos or neg is the limiting)
     :return: float (amount of precipitate)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
-    if COLUMN == 0: 
+    # insert spaghetti code here 
+    if COLUMN == 1:
+        if NEGATIVE == "clo4":
+            if POSITIVE == "rb":
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            elif POSITIVE == "cs":
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else: 
+                pass
+        elif NEGATIVE == "ch3coo":
+            if POSITIVE == "ag":
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            elif POSITIVE == "hg":
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                pass
+    else:
         print("The two ions will not create a precipitate. ")
-
+        PRODUCT = 0 
+    return PRODUCT 
 
 def molesToMass(MOLES, NAME): 
     """
@@ -216,8 +251,9 @@ if __name__ == "__main__":
     # Processing # 
     PMOLES = calculateMoles(PVOLUME, PCONCENTRATION)
     NMOLES = calculateMoles(NVOLUME, NCONCENTRATION)
-    
+
     PCOEFFICIENT, NCOEFFICIENT = balanceEquation(POSITIVE, NEGATIVE)
     LIMITING, LMOLES = determineLimiting(PMOLES, PCOEFFICIENT, NMOLES, NCOEFFICIENT)
+    COLUMN = formsPrecipitate(LMOLES, POSITIVE, NEGATIVE)
     # Outputs # 
     displayLimiting(LIMITING, POSITIVE, NEGATIVE)
