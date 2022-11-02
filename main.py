@@ -167,7 +167,12 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     """
     calculate the precipitate by using the mole ratio
     :param MOLES: float (moles of the limiting reagent)
+    :param COLUMN: int
     :param LIMITING: int (whether pos or neg is the limiting)
+    :param POSITIVE: str (name of pos)
+    :param NEGATIVE: str (name of neg)
+    :param PCOEFFICIENT: int 
+    :param NCOEFFICIENT: int 
     :return: float (amount of precipitate)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
@@ -255,5 +260,7 @@ if __name__ == "__main__":
     PCOEFFICIENT, NCOEFFICIENT = balanceEquation(POSITIVE, NEGATIVE)
     LIMITING, LMOLES = determineLimiting(PMOLES, PCOEFFICIENT, NMOLES, NCOEFFICIENT)
     COLUMN = formsPrecipitate(LMOLES, POSITIVE, NEGATIVE)
+    PRECIPITATE = calculatePrecipitate(LMOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIENT, NCOEFFICIENT)
     # Outputs # 
     displayLimiting(LIMITING, POSITIVE, NEGATIVE)
+    print(PRECIPITATE)
