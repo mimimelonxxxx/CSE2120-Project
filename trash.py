@@ -186,7 +186,98 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     :return: float (amount of precipitate)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
-    # i need to write this properly 
+    # insert spaghetti code here 
+    # NEED TO REWRITE 
+    if COLUMN == 1: # checks what column it's in 
+        if NEGATIVE == "clo4": 
+            if POSITIVE == "rb": # Check for RbClO4 
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            elif POSITIVE == "cs": # check for CsClO4
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else: 
+                PRODUCT = 0 
+        elif NEGATIVE == "ch3coo":
+            if POSITIVE == "ag": # checks for AgCH3COO
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            elif POSITIVE == "hg": # check for Hg2(CH3COO)2
+                if LIMITING == 1:
+                    PRODUCT = MOLES / PCOEFFICIENT
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT
+            else:
+                PRODUCT = 0 
+    elif COLUMN == 2:
+        if POSITIVE in THIRDSECOND: # checks if the positive forms a precipitate 
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT # converts the moles of the limiting to moles of product 
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            PRODUCT = 0 
+    elif COLUMN == 3: 
+        if POSITIVE in THIRDTHIRD:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else: 
+            PRODUCT = 0 
+    elif COLUMN == 4:
+        if POSITIVE in THIRDFOURTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            PRODUCT = 0 
+    elif COLUMN == 5: 
+        if POSITIVE not in SECONDFIFTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            PRODUCT = 0 
+    elif COLUMN == 6: 
+        if POSITIVE not in SECONDSIXTH: 
+            if LIMITING == 1: 
+                PRODUCT = MOLES / PCOEFFICIENT 
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT 
+        elif POSITIVE == "co":
+            if NEGATIVE == "io3":
+                if LIMITING == 1: 
+                    PRODUCT = MOLES / PCOEFFICIENT 
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT 
+        elif POSITIVE == "fe": 
+            if NEGATIVE == "ooccoo":
+                if LIMITING == 1: 
+                    PRODUCT = MOLES / PCOEFFICIENT 
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT 
+        else: 
+            PRODUCT = 0 
+    elif COLUMN == 7:
+        if POSITIVE not in SECONDSEVENTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / PCOEFFICIENT
+            else: 
+                PRODUCT = MOLES / NCOEFFICIENT
+        else:
+            PRODUCT = 0 
+    else:
+        PRODUCT = 0 
+    return PRODUCT 
 
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
     """
