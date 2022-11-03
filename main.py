@@ -187,6 +187,13 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
     # i need to write this properly 
+    """
+    There must be a function that does all of the following:
+        Add a value to an array
+        Modify a value from an array
+        OPTIONAL: delete or remove a value from an array
+    """
+    
 
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
     """
