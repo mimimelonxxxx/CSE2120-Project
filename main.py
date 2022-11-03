@@ -183,10 +183,9 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     :param NEGATIVE: str (name of neg)
     :param PCOEFFICIENT: int 
     :param NCOEFFICIENT: int 
-    :return: float (amount of precipitate)
+    :return: float (amount of precipitate in moles)
     """
     global FIRSTFIRST, FIRSTSECOND, FIRSTTHIRD, FIRSTFOURTH, FIRSTFIFTH, FIRSTSIXTH, FIRSTSEVENTH, ALLPOS
-    # i need to write this properly 
     """
     There must be a function that does all of the following:
         Add a value to an array
@@ -194,7 +193,12 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
         OPTIONAL: delete or remove a value from an array
     """
     PRECIPITATE = False # does it form a precipitate? 
+    REACTANTS = []
+    REACTANTS.append([POSITIVE, PCOEFFICIENT])
+    REACTANTS.append([NEGATIVE, NCOEFFICIENT])
+    # first check positive, then check negative?
     
+
     
 
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 

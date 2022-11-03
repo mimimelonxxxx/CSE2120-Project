@@ -103,7 +103,8 @@ def balanceEquation(NAME1, NAME2):
     balances the equation by 
     1. getting the charges of each reactant
     2. comparing the charges 
-    3. tries to make the charges equal (multiply by each other?) 
+    3. tries to make the charges equal (use gcd) 
+    4. checks for polyatomic elements and tries to balance that too
     :param NAME1: str
     :param NAME2: str 
     :return: coefficients (int)
@@ -111,8 +112,9 @@ def balanceEquation(NAME1, NAME2):
     global ALLPOS, ALLNEG
     # need to balance charges
     # diatomic atoms 
-    PROPERTIES1 = ALLPOS.get(NAME1)
-    CHARGE1 = PROPERTIES1[1]
+    PPROPERTIES = []
+    NPROPERTIES = []
+    PPROPERTIES.append(ALLPOS.get(NAME1))
     PROPERTIES2 = ALLNEG.get(NAME2)
     CHARGE2 = PROPERTIES2[1]
     # get the greatest common denominator and divide each by that
