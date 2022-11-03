@@ -193,6 +193,8 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
         Modify a value from an array
         OPTIONAL: delete or remove a value from an array
     """
+    PRECIPITATE = False 
+    
     
 
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
