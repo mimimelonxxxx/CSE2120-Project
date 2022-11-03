@@ -72,7 +72,7 @@ SECONDSIXTH = {
     "cs": (132.91, 1), 
     "fr": (223, 1),
     "nh4": (18.05, 1),
-    "co": (58.93, 2), # remember to check if the other reactant is IO3 otherwise forms a precipitate
+    "co": (58.93, 2), # check if the other reactant is IO3 otherwise forms a precipitate
     "fe": (55.85, 3) # check if it's OOCCOO
 }
 
@@ -261,5 +261,4 @@ ALLNEG = {
     "te": (127.60, -2),
 
     "at": (210, -1)
-
 }

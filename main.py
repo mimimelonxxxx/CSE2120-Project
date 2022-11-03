@@ -52,6 +52,13 @@ def checkNeg(ION):
         NEWION = input("> ")
         return checkNeg(NEWION.lower())
 
+def startScreen():
+    """
+    prints starting text
+    :return: None
+    """
+    print("Calculate the mass of a precipitate from two ions! ")
+
 def getPositive(): 
     """
     gets the information for the positive ion 
@@ -240,13 +247,25 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                 PRODUCT = MOLES / NCOEFFICIENT
         else:
             PRODUCT = 0 
-    elif COLUMN == 6:
+    elif COLUMN == 6: 
         if POSITIVE not in SECONDSIXTH: 
-            if LIMITING == 1:
-                PRODUCT = MOLES / PCOEFFICIENT
+            if LIMITING == 1: 
+                PRODUCT = MOLES / PCOEFFICIENT 
             else: 
-                PRODUCT = MOLES / NCOEFFICIENT
-        else:
+                PRODUCT = MOLES / NCOEFFICIENT 
+        elif POSITIVE == "co":
+            if NEGATIVE == "io3":
+                if LIMITING == 1: 
+                    PRODUCT = MOLES / PCOEFFICIENT 
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT 
+        elif POSITIVE == "fe": 
+            if NEGATIVE == "ooccoo":
+                if LIMITING == 1: 
+                    PRODUCT = MOLES / PCOEFFICIENT 
+                else: 
+                    PRODUCT = MOLES / NCOEFFICIENT 
+        else: 
             PRODUCT = 0 
     elif COLUMN == 7:
         if POSITIVE not in SECONDSEVENTH:
@@ -305,10 +324,19 @@ def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
     :return: None
     """
     # time to write some more spaghetti code
+    COMPOUND = [PNAME, PCOEFFICIENT, NNAME, NCOEFFICIENT]
     if MASS == 0: 
         print("The two ions will not create a precipitate. ")
     elif PCOEFFICIENT == 1 and NCOEFFICIENT != 1:
-        print(f"The mass of {PNAME.title()}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
+        if len(NEGATIVE) > 2:
+            if NEGATIVE == "clo3":
+                print(f"The mass of {PNAME.title()}(ClO3){NCOEFFICIENT} is {MASS} grams. ")
+            elif NEGATIVE == "clo4":
+                print(f"The mass of {PNAME.title()}(ClO4){NCOEFFICIENT} is {MASS} grams. ")
+            else:
+                print(f"The mass of {PNAME.title()}({NNAME.upper()}){NCOEFFICIENT} is {MASS} grams. ")
+        else:
+            print(f"The mass of {PNAME.title()}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
     elif PCOEFFICIENT != 1 and NCOEFFICIENT == 1:
         print(f"The mass of {PNAME.title()}{PCOEFFICIENT}{NNAME.title()} is {MASS} grams. ")
     elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1: 
@@ -319,6 +347,7 @@ def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
 ### MAIN PROGRAM CODE ### 
 if __name__ == "__main__": 
     # Inputs # 
+    startScreen()
     POSITIVE, PVOLUME, PCONCENTRATION = getPositive()
     NEGATIVE, NVOLUME, NCONCENTRATION = getNegative()
 
