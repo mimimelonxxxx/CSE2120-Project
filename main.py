@@ -193,7 +193,7 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
         Modify a value from an array
         OPTIONAL: delete or remove a value from an array
     """
-    PRECIPITATE = False 
+    PRECIPITATE = False # does it form a precipitate? 
     
     
 
@@ -259,8 +259,13 @@ def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
             print(f"The mass of ({PNAME.upper()}){PCOEFFICIENT}{NNAME.title()} is {MASS} grams. ")
         else:
             print(f"The mass of {PNAME.title()}{PCOEFFICIENT}{NNAME.title()} is {MASS} grams. ")
-    elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1: 
-        print(f"The mass of {PNAME.title()}{NNAME.title()} is {MASS} grams. ")
+    elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1:
+        if len(POSITIVE) > 2: 
+            print(f"The mass of {PNAME.upper()}{NNAME.title()} is {MASS} grams. ")
+        elif len(NEGATIVE) > 2:
+            print(f"The mass of {PNAME.title()}{NNAME.upper()} is {MASS} grams. ")
+        else:
+            print(f"The mass of {PNAME.title()}{NNAME.title()} is {MASS} grams. ")
     else:
         if len(POSITIVE) > 2: 
             print(f"The mass of ({PNAME.upper()}){PCOEFFICIENT}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
