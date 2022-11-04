@@ -199,8 +199,6 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     # first check positive, then check negative?
     
 
-    
-
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
     """
     converts the moles of a precipitate to grams 
