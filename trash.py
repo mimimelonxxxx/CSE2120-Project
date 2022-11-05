@@ -188,26 +188,26 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     # insert spaghetti code here 
     # NEED TO REWRITE 
     if COLUMN == 1: # checks what column it's in 
-        if NEGATIVE == "clo4": 
-            if POSITIVE == "rb": # Check for RbClO4 
+        if NEGATIVE == "ClO4": 
+            if POSITIVE == "Rb": # Check for RbClO4 
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
-            elif POSITIVE == "cs": # check for CsClO4
+            elif POSITIVE == "Cs": # check for CsClO4
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
             else: 
                 PRODUCT = 0 
-        elif NEGATIVE == "ch3coo":
-            if POSITIVE == "ag": # checks for AgCH3COO
+        elif NEGATIVE == "CH3COO":
+            if POSITIVE == "Ag": # checks for AgCH3COO
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT
-            elif POSITIVE == "hg": # check for Hg2(CH3COO)2
+            elif POSITIVE == "Hg": # check for Hg2(CH3COO)2
                 if LIMITING == 1:
                     PRODUCT = MOLES / PCOEFFICIENT
                 else: 
@@ -252,14 +252,14 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                 PRODUCT = MOLES / PCOEFFICIENT 
             else: 
                 PRODUCT = MOLES / NCOEFFICIENT 
-        elif POSITIVE == "co":
-            if NEGATIVE == "io3":
+        elif POSITIVE == "Co":
+            if NEGATIVE == "IO3":
                 if LIMITING == 1: 
                     PRODUCT = MOLES / PCOEFFICIENT 
                 else: 
                     PRODUCT = MOLES / NCOEFFICIENT 
-        elif POSITIVE == "fe": 
-            if NEGATIVE == "ooccoo":
+        elif POSITIVE == "Fe": 
+            if NEGATIVE == "OOCCOO":
                 if LIMITING == 1: 
                     PRODUCT = MOLES / PCOEFFICIENT 
                 else: 

@@ -190,11 +190,115 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
         Modify a value from an array
         OPTIONAL: delete or remove a value from an array
     """
-    PRECIPITATE = False # does it form a precipitate? 
     REACTANTS = []
     # first check positive, then check negative?
     REACTANTS.append(POSITIVE)
     REACTANTS.append(PCOEFFICIENT)
+    # [cation, coefficient] -- use the column and check if the cation is in there 
+    # this has got to be the least effective method possible 
+    if COLUMN == 1: # checks what column it's in 
+        if NEGATIVE == "ClO4": 
+            if POSITIVE == "Rb": # Check for RbClO4 
+                if LIMITING == 1:
+                    PRODUCT = MOLES / REACTANTS[1]
+                else: 
+                    REACTANTS[1] = NCOEFFICIENT
+                    PRODUCT = MOLES / REACTANTS[1]
+            elif POSITIVE == "Cs": # check for CsClO4
+                if LIMITING == 1:
+                    PRODUCT = MOLES / REACTANTS[1]
+                else: 
+                    REACTANTS[1] = NCOEFFICIENT
+                    PRODUCT = MOLES / REACTANTS[1]
+            else: 
+                PRODUCT = 0 
+        elif NEGATIVE == "CH3COO":
+            if POSITIVE == "Ag": # checks for AgCH3COO
+                if LIMITING == 1:
+                    PRODUCT = MOLES / REACTANTS[1]
+                else: 
+                    REACTANTS[1] = NCOEFFICIENT
+                    PRODUCT = MOLES / REACTANTS[1]
+            elif POSITIVE == "Hg": # check for Hg2(CH3COO)2
+                if LIMITING == 1:
+                    PRODUCT = MOLES / REACTANTS[1]
+                else: 
+                    REACTANTS[1] = NCOEFFICIENT
+                    PRODUCT = MOLES / REACTANTS[1]
+            else:
+                PRODUCT = 0 
+    elif COLUMN == 2:
+        if POSITIVE in THIRDSECOND: # checks if the positive forms a precipitate 
+            if LIMITING == 1:
+                PRODUCT = MOLES / REACTANTS[1] # converts the moles of the limiting to moles of product 
+            else: 
+                REACTANTS[1] = NCOEFFICIENT
+                PRODUCT = MOLES / REACTANTS[1]
+        else:
+            PRODUCT = 0 
+    elif COLUMN == 3: 
+        if POSITIVE in THIRDTHIRD:
+            if LIMITING == 1:
+                PRODUCT = MOLES / REACTANTS[1]
+            else: 
+                REACTANTS[1] = NCOEFFICIENT
+                PRODUCT = MOLES / REACTANTS[1]
+        else: 
+            PRODUCT = 0 
+    elif COLUMN == 4:
+        if POSITIVE in THIRDFOURTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / REACTANTS[1]
+            else: 
+                REACTANTS[1] = NCOEFFICIENT
+                PRODUCT = MOLES / REACTANTS[1]
+        else:
+            PRODUCT = 0 
+    elif COLUMN == 5: 
+        if POSITIVE not in SECONDFIFTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / REACTANTS[1]
+            else: 
+                REACTANTS[1] = NCOEFFICIENT
+                PRODUCT = MOLES / REACTANTS[1]
+        else:
+            PRODUCT = 0 
+    elif COLUMN == 6: 
+        if POSITIVE not in SECONDSIXTH: 
+            if LIMITING == 1: 
+                PRODUCT = MOLES / REACTANTS[1] 
+            else: 
+                REACTANTS[1] = NCOEFFICIENT
+                PRODUCT = MOLES / REACTANTS[1] 
+        elif POSITIVE == "Co":
+            if NEGATIVE == "IO3":
+                if LIMITING == 1: 
+                    PRODUCT = MOLES / REACTANTS[1] 
+                else: 
+                    REACTANTS[1] = NCOEFFICIENT
+                    PRODUCT = MOLES / REACTANTS[1] 
+        elif POSITIVE == "Fe": 
+            if NEGATIVE == "OOCCOO":
+                if LIMITING == 1: 
+                    PRODUCT = MOLES / REACTANTS[1] 
+                else: 
+                    REACTANTS[1] = NCOEFFICIENT
+                    PRODUCT = MOLES / REACTANTS[1] 
+        else: 
+            PRODUCT = 0 
+    elif COLUMN == 7:
+        if POSITIVE not in SECONDSEVENTH:
+            if LIMITING == 1:
+                PRODUCT = MOLES / REACTANTS[1]
+            else: 
+                REACTANTS[1] = NCOEFFICIENT
+                PRODUCT = MOLES / REACTANTS[1]
+        else:
+            PRODUCT = 0 
+    else:
+        PRODUCT = 0 
+# no need to check if group 1 ions or NH4 create precipitates, because they never create precipitates
+    return PRODUCT 
 
     
     
@@ -247,13 +351,23 @@ def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
     if MASS == 0: 
         print("The two ions will not create a precipitate. ")
     elif PCOEFFICIENT == 1 and NCOEFFICIENT != 1:
-        print(f"The mass of {PNAME}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
+        if len(NEGATIVE) > 2: 
+            print(f"The mass of {PNAME}({NNAME}){NCOEFFICIENT} is {MASS} grams. ")
+        else:
+            print(f"The mass of {PNAME}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
     elif PCOEFFICIENT != 1 and NCOEFFICIENT == 1:
-        print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME} is {MASS} grams. ")
+        if len(POSITIVE) > 2: 
+            print(f"The mass of ({PNAME}){PCOEFFICIENT}{NNAME} is {MASS} grams. ")
+        else:
+            print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME} is {MASS} grams. ")
     elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1: 
         print(f"The mass of {PNAME}{NNAME} is {MASS} grams. ")
     else:
-        print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
+        if len(NEGATIVE) > 2 and not len(POSITIVE) > 2: 
+            print(f"The mass of {PNAME}{PCOEFFICIENT}({NNAME}){NCOEFFICIENT} is {MASS} grams. ")
+            # NH4 will never create a precipitate 
+        else:
+            print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
 
 ### MAIN PROGRAM CODE ### 
 if __name__ == "__main__": 
