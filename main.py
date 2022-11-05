@@ -193,8 +193,7 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     REACTANTS = []
     # first check positive, then check negative?
     REACTANTS.append(POSITIVE)
-    REACTANTS.append(PCOEFFICIENT)
-    # [cation, coefficient] -- use the column and check if the cation is in there 
+    REACTANTS.append(PCOEFFICIENT) # added values to the array
     # this has got to be the least effective method possible 
     if COLUMN == 1: # checks what column it's in 
         if NEGATIVE == "ClO4": 
@@ -202,7 +201,7 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                 if LIMITING == 1:
                     PRODUCT = MOLES / REACTANTS[1]
                 else: 
-                    REACTANTS[1] = NCOEFFICIENT
+                    REACTANTS[1] = NCOEFFICIENT # modified an array
                     PRODUCT = MOLES / REACTANTS[1]
             elif POSITIVE == "Cs": # check for CsClO4
                 if LIMITING == 1:
@@ -211,7 +210,7 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
                     REACTANTS[1] = NCOEFFICIENT
                     PRODUCT = MOLES / REACTANTS[1]
             else: 
-                PRODUCT = 0 
+                PRODUCT = 0 # does not form a precipitate
         elif NEGATIVE == "CH3COO":
             if POSITIVE == "Ag": # checks for AgCH3COO
                 if LIMITING == 1:
@@ -298,6 +297,7 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     else:
         PRODUCT = 0 
 # no need to check if group 1 ions or NH4 create precipitates, because they never create precipitates
+# if product == 0 then it does not form a precipitate
     return PRODUCT 
 
     
