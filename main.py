@@ -31,12 +31,12 @@ def checkPos(ION):
     :return: str 
     """
     global ALLPOS
-    if not ALLPOS.get(ION) == None:
+    if ION in ALLPOS:
         return ION
     else:
         print("Please enter a valid positive ion!")
         NEWION = input("> ")
-        return checkPos(NEWION.lower())
+        return checkPos(NEWION)
 
 def checkNeg(ION):
     """
@@ -45,12 +45,12 @@ def checkNeg(ION):
     :return: str 
     """
     global ALLNEG
-    if not ALLNEG.get(ION) == None:
+    if ION in ALLNEG:
         return ION
     else:
         print("Please enter a valid negative ion!")
         NEWION = input("> ")
-        return checkNeg(NEWION.lower())
+        return checkNeg(NEWION)
 
 def startScreen():
     """
@@ -65,7 +65,6 @@ def getPositive():
     :return: str, float, float
     """
     ION = input("What's the name of the positive reacting ion? (no charges) ")
-    ION = ION.lower()
     ION = checkPos(ION)
     VOLUME = input("What's the volume of the positive solution? (L) ")
     VOLUME = checkFloat(VOLUME)
@@ -79,7 +78,6 @@ def getNegative():
     :return: str, float, float
     """
     ION = input("What's the name of the negative reacting ion? (no charges) ")
-    ION = ION.lower()
     ION = checkNeg(ION)
     VOLUME = input("What's the volume of the negative solution? (L) ")
     VOLUME = checkFloat(VOLUME)
@@ -194,9 +192,11 @@ def calculatePrecipitate(MOLES, COLUMN, LIMITING, POSITIVE, NEGATIVE, PCOEFFICIE
     """
     PRECIPITATE = False # does it form a precipitate? 
     REACTANTS = []
-    REACTANTS.append([POSITIVE, PCOEFFICIENT])
-    REACTANTS.append([NEGATIVE, NCOEFFICIENT])
     # first check positive, then check negative?
+    REACTANTS.append(POSITIVE)
+    REACTANTS.append(PCOEFFICIENT)
+
+    
     
 
 def precipitateMass(MOLES, NAME1, NAME2, COEFFICIENT1, COEFFICIENT2): 
@@ -229,9 +229,9 @@ def displayLimiting(LIMITING, NAME1, NAME2):
     :return: None 
     """
     if LIMITING == 1: 
-        print(f"The limiting reagent is {NAME1.title()}. ")
+        print(f"The limiting reagent is {NAME1}. ")
     else: 
-        print(f"The limiting reagent is {NAME2.title()}. ")
+        print(f"The limiting reagent is {NAME2}. ")
 
 def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
     """
@@ -247,39 +247,13 @@ def displayPrecipitate(MASS, PNAME, NNAME, PCOEFFICIENT, NCOEFFICIENT):
     if MASS == 0: 
         print("The two ions will not create a precipitate. ")
     elif PCOEFFICIENT == 1 and NCOEFFICIENT != 1:
-        if len(NEGATIVE) > 2:
-            if NEGATIVE == "clo3":
-                print(f"The mass of {PNAME.title()}(ClO3){NCOEFFICIENT} is {MASS} grams. ")
-            elif NEGATIVE == "clo4":
-                print(f"The mass of {PNAME.title()}(ClO4){NCOEFFICIENT} is {MASS} grams. ")
-            else:
-                print(f"The mass of {PNAME.title()}({NNAME.upper()}){NCOEFFICIENT} is {MASS} grams. ")
-        else:
-            print(f"The mass of {PNAME.title()}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
+        print(f"The mass of {PNAME}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
     elif PCOEFFICIENT != 1 and NCOEFFICIENT == 1:
-        if len(POSITIVE) > 2:
-            print(f"The mass of ({PNAME.upper()}){PCOEFFICIENT}{NNAME.title()} is {MASS} grams. ")
-        else:
-            print(f"The mass of {PNAME.title()}{PCOEFFICIENT}{NNAME.title()} is {MASS} grams. ")
-    elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1:
-        if len(POSITIVE) > 2: 
-            print(f"The mass of {PNAME.upper()}{NNAME.title()} is {MASS} grams. ")
-        elif len(NEGATIVE) > 2:
-            print(f"The mass of {PNAME.title()}{NNAME.upper()} is {MASS} grams. ")
-        else:
-            print(f"The mass of {PNAME.title()}{NNAME.title()} is {MASS} grams. ")
+        print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME} is {MASS} grams. ")
+    elif PCOEFFICIENT == 1 and NCOEFFICIENT == 1: 
+        print(f"The mass of {PNAME}{NNAME} is {MASS} grams. ")
     else:
-        if len(POSITIVE) > 2: 
-            print(f"The mass of ({PNAME.upper()}){PCOEFFICIENT}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
-        elif len(NEGATIVE) > 2:
-            if NEGATIVE == "clo3":
-                print(f"The mass of {PNAME.title()}{PCOEFFICIENT}(ClO3){NCOEFFICIENT} is {MASS} grams. ")
-            elif NEGATIVE == "clo4":
-                print(f"The mass of {PNAME.title()}{PCOEFFICIENT}(ClO4){NCOEFFICIENT} is {MASS} grams. ")
-            else:
-                print(f"The mass of {PNAME.title()}{PCOEFFICIENT}({NNAME.upper()}){NCOEFFICIENT} is {MASS} grams. ")
-        else:
-            print(f"The mass of {PNAME.title()}{PCOEFFICIENT}{NNAME.title()}{NCOEFFICIENT} is {MASS} grams. ")
+        print(f"The mass of {PNAME}{PCOEFFICIENT}{NNAME}{NCOEFFICIENT} is {MASS} grams. ")
 
 ### MAIN PROGRAM CODE ### 
 if __name__ == "__main__": 
